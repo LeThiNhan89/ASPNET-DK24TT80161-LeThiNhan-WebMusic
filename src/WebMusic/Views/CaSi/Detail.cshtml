@@ -1,0 +1,68 @@
+@model CaSiDetailVM
+@{
+    ViewData["Title"] = Model.CaSi?.TenCaSi;
+    var cs = Model.CaSi!;
+}
+
+<div class="musico-bradcam">
+    <div class="container">
+        <h1>@cs.TenCaSi</h1>
+    </div>
+</div>
+
+<div class="container">
+    <div class="musico-about mb-4">
+        <div class="about-thumb">
+            <img src="~/images/casi/@cs.HinhAnh" alt="@cs.TenCaSi" class="wm-cover-lg" style="width:280px;height:280px" />
+        </div>
+        <div class="about-info">
+            <h3>@cs.TenCaSi</h3>
+            <p>Năm sinh: @cs.NamSinh</p>
+            <p>Quê quán: @cs.QueQuan</p>
+            @if (!string.IsNullOrEmpty(cs.MoTaThem))
+            {
+                <p class="wm-pre-line">@cs.MoTaThem</p>
+            }
+        </div>
+    </div>
+
+    <section class="mb-4">
+        <h2 class="musico-section-title">Bài hát của @cs.TenCaSi</h2>
+        @if (Model.BaiHats.Any())
+        {
+            <div class="card"><div class="card-body">
+                @foreach (var bh in Model.BaiHats)
+                {
+                    @await Html.PartialAsync("_TrackRow", bh)
+                }
+            </div></div>
+        }
+        else
+        {
+            <p style="color:#b3b3b3" class="text-center">Chưa có bài hát của ca sĩ này.</p>
+        }
+    </section>
+
+    <section class="mb-4">
+        <h2 class="musico-section-title">Album của @cs.TenCaSi</h2>
+        @if (Model.Albums.Any())
+        {
+            <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-6 g-3">
+                @foreach (var ab in Model.Albums)
+                {
+                    <div class="col">
+                        <a class="musico-gallery-item text-decoration-none" asp-controller="Album" asp-action="Detail" asp-route-id="@ab.MaAlbum">
+                            <img src="~/images/album/@ab.HinhAnh" alt="@ab.TenAlbum" />
+                            <div class="musico-gallery-overlay"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0z"/></svg></div>
+                            <div class="musico-gallery-caption"><h6>@ab.TenAlbum</h6></div>
+                        </a>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <p style="color:#b3b3b3" class="text-center">Chưa có album của ca sĩ này.</p>
+        }
+    </section>
+</div>

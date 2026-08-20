@@ -1,0 +1,39 @@
+@model Album
+@{
+    ViewData["Title"] = Model.TenAlbum;
+    var baiHats = ViewBag.BaiHats as List<BaiHat> ?? new();
+}
+
+<div class="musico-bradcam">
+    <div class="container">
+        <h1>@Model.TenAlbum</h1>
+    </div>
+</div>
+
+<div class="container">
+    <div class="musico-about mb-4">
+        <div class="about-thumb">
+            <img src="~/images/album/@Model.HinhAnh" alt="@Model.TenAlbum" class="wm-cover-lg" style="width:280px;height:280px" />
+        </div>
+        <div class="about-info">
+            <h3>@Model.TenAlbum</h3>
+        </div>
+    </div>
+
+    <section class="mb-4">
+        <h2 class="musico-section-title">Bài hát trong album</h2>
+        @if (baiHats.Any())
+        {
+            <div class="card"><div class="card-body">
+                @foreach (var bh in baiHats)
+                {
+                    @await Html.PartialAsync("_TrackRow", bh)
+                }
+            </div></div>
+        }
+        else
+        {
+            <p style="color:#b3b3b3" class="text-center">Chưa có bài hát trong album này.</p>
+        }
+    </section>
+</div>

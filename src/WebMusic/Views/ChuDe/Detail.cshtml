@@ -1,0 +1,42 @@
+@model ChuDeDetailVM
+@{
+    ViewData["Title"] = Model.ChuDe?.TenChuDe;
+}
+
+<div class="musico-bradcam">
+    <div class="container">
+        <h1>@Model.ChuDe?.TenChuDe</h1>
+    </div>
+</div>
+
+<div class="container">
+    <div class="musico-about mb-4">
+        <div class="about-thumb">
+            <img src="~/images/chude/@Model.ChuDe?.HinhAnh" alt="@Model.ChuDe?.TenChuDe" class="wm-cover-lg" style="width:280px;height:280px" />
+        </div>
+        <div class="about-info">
+            <h3>@Model.ChuDe?.TenChuDe</h3>
+            @if (!string.IsNullOrEmpty(Model.ChuDe?.MoTaThem))
+            {
+                <p class="wm-pre-line">@Model.ChuDe?.MoTaThem</p>
+            }
+        </div>
+    </div>
+
+    <section class="mb-4">
+        <h2 class="musico-section-title">Bài hát</h2>
+        @if (Model.BaiHats.Any())
+        {
+            <div class="card"><div class="card-body">
+                @foreach (var bh in Model.BaiHats)
+                {
+                    @await Html.PartialAsync("_TrackRow", bh)
+                }
+            </div></div>
+        }
+        else
+        {
+            <p style="color:#b3b3b3" class="text-center">Chưa có bài hát thuộc chủ đề này.</p>
+        }
+    </section>
+</div>

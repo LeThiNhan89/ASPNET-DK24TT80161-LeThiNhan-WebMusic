@@ -1,0 +1,25 @@
+@model IEnumerable<Album>
+@{
+    ViewData["Title"] = "Album";
+}
+
+<div class="musico-bradcam">
+    <div class="container">
+        <h1>Album</h1>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-6 g-3">
+        @foreach (var ab in Model)
+        {
+            <div class="col">
+                <a class="musico-gallery-item text-decoration-none" asp-controller="Album" asp-action="Detail" asp-route-id="@ab.MaAlbum">
+                    <img src="~/images/album/@ab.HinhAnh" alt="@ab.TenAlbum" />
+                    <div class="musico-gallery-overlay"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0z"/></svg></div>
+                    <div class="musico-gallery-caption"><h6>@ab.TenAlbum</h6></div>
+                </a>
+            </div>
+        }
+    </div>
+</div>
